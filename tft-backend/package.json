@@ -2,9 +2,9 @@
   "name": "tft-backend",
   "version": "1.0.0",
   "description": "tft statistics backend",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
