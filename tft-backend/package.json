@@ -1,0 +1,22 @@
+{
+  "name": "tft-backend",
+  "version": "1.0.0",
+  "description": "tft statistics backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KKhajiit/TFT-Statistics.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "SplendidCat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KKhajiit/TFT-Statistics/issues"
+  },
+  "homepage": "https://github.com/KKhajiit/TFT-Statistics#readme"
+}
