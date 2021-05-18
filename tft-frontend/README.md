@@ -7,17 +7,17 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+vue serve
 ```
 
 ### Compiles and minifies for production
 ```
-npm run build
+vue build
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
+vue lint
 ```
 
 ### Customize configuration
