@@ -1,6 +1,12 @@
 <template>
     <div class="container">
         <Grid ref="grid" :on-drop="OnDropGet" :on-drag-start="OnDragStartFromGrid" v-bind:grid-content="gridContent"/>
+
+        <div class="alert alert-warning" role="alert" v-if="messageView">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span class="tft__margin__left-10">{{ message }}</span>
+            <div class="float-end" style="cursor: pointer;" @click="DisableMessage"><i class="fas fa-times"></i></div>
+        </div>
         <div class="row">
             <div class="col-7">
                 <ChampionsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
@@ -20,6 +26,10 @@ import Champions from '../../Utils/champions.js';
 import Items from '../../Utils/items.js';
 import Utils from "../../Utils/Utils.js";
 
+const UniqueItem = '해당 아이템은 중복해서 줄 수 없습니다.';
+const ItemLimits3 = '한 챔피언에 아이템은 최대 3개까지 입니다.';
+const IfNoUnitNoItem = '아이템을 배치하기 전에 챔피언을 배치하세요.';
+
 export default {
     components: {
         Grid,
@@ -29,6 +39,8 @@ export default {
     data() {
         return {
             gridContent: null,
+            messageView: true,
+            message: 'message'
         };
     },
     mounted() {
@@ -44,6 +56,13 @@ export default {
                 }
             }
         },
+        SetMessage(msg) {
+            this.message = msg;
+            this.messageView = true;
+        },
+        DisableMessage() {
+            this.messageView = false;
+        },
         UpdateCell(r, c, data) {
             const newRow = this.gridContent[r];
             newRow[c] = data;
@@ -52,15 +71,18 @@ export default {
         AddItemToUnit(r, c, itemId) {
             const newRow = this.gridContent[r];
             if (newRow[c] === null) {
+                this.SetMessage(IfNoUnitNoItem);
                 return;
             }
             if (!Object.prototype.hasOwnProperty.call(newRow[c], 'items')) {
                 newRow[c].items = [];
             }
             if (Items.GetItemById(itemId).isUnique && newRow[c].items.filter(x => x == itemId).length > 0) {
+                this.SetMessage(UniqueItem);
                 return;
             }
             if (newRow[c].items.length >= 3) {
+                this.SetMessage(ItemLimits3);
                 return;
             }
             newRow[c].items.push(itemId);
