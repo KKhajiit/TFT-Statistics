@@ -18,3 +18,7 @@ export default {
   }
 }
 </script>
+
+<style>
+@import "src/assets/styles/splendidcat.css";
+</style>

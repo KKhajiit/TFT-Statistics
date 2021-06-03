@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Main from '@/components/Main.vue';
 import Temp from '@/components/Temp.vue';
 import User from '@/components/User/Index.vue';
+import Builder from '@/components/BatchTool/Index.vue';
 Vue.use(Router);
 
 const index = new Router({
@@ -19,6 +20,10 @@ const index = new Router({
         {
             path: '/user',
             component: User
+        },
+        {
+            path: '/builder',
+            component: Builder
         },
     ]
 });

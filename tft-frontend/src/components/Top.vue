@@ -72,7 +72,7 @@
                             <hr class="dropdown-divider text-light">
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="#">배치툴</a>
+                            <a class="nav-link text-light" href="/builder">배치툴</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" href="#">시뮬레이터</a>

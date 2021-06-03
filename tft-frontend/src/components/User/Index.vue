@@ -53,7 +53,7 @@
                     <div class="col-6">
                         <div class="row gy-2">
                             <div class="col-12">
-                                <div class="float-start tft__margin">
+                                <div class="float-start tft__margin-10">
                                     <div class="d-flex justify-content-center">
                                         <i class="fas fa-star small"></i>
                                         <i class="fas fa-star small"></i>
@@ -63,7 +63,7 @@
                                         <img src="@/assets/TFT/champions/TFT5_Gragas.png" class="img-fluid champions__img"/>
                                     </div>
                                 </div>
-                                <div class="float-start tft__margin">
+                                <div class="float-start tft__margin-10">
                                     <div class="d-flex justify-content-center">
                                         <i class="fas fa-star small"></i>
                                         <i class="fas fa-star small"></i>
@@ -72,7 +72,7 @@
                                         <img src="@/assets/TFT/champions/TFT5_Aatrox.png" class="img-fluid champions__img"/>
                                     </div>
                                 </div>
-                                <div class="float-start tft__margin">
+                                <div class="float-start tft__margin-10">
                                     <div class="d-flex justify-content-center">
                                         <i class="fas fa-star small"></i>
                                     </div>
@@ -83,10 +83,10 @@
                             </div>
                             <div class="col-12">
                                 <div class="trait__bg trait__img__bg__bronze trait__img__bg__24 tft__margin">
-                                    <img src="@/assets/TFT/traits/assassin.svg"/>
+                                    <img src="@/assets/TFT/traits/Set5_Assassin.svg"/>
                                 </div>
                                 <div class="trait__bg trait__img__bg__platinum trait__img__bg__24 tft__margin">
-                                    <img src="@/assets/TFT/traits/assassin.svg"/>
+                                    <img src="@/assets/TFT/traits/Set5_Assassin.svg"/>
                                 </div>
                             </div>
                         </div>
@@ -179,80 +179,3 @@ export default {
     },
 }
 </script>
-
-<style>
-.chart {
-    max-width: 600px;
-    margin: 150px auto;
-}
-
-.bg__profile {
-    background-image: url("https://mnm.gg/wp-content/uploads/2018/01/lol-bg-1920x600.png");
-}
-
-.img__profile {
-    margin: 10px;
-}
-
-
-.champions__img {
-    width: 50px;
-    height: 50px;
-    border-radius: 1px 1px 1px 1px;
-    border: 3px solid pink;
-}
-
-.trait__bg {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: 50%;
-}
-
-.trait__img__bg__bronze {
-    background-image: url("../../assets/TFT/traits/bg_bronze.png");
-}
-
-.trait__img__bg__silver {
-    background-image: url("../../assets/TFT/traits/bg_silver.png");
-}
-
-.trait__img__bg__gold {
-    background-image: url("../../assets/TFT/traits/bg_gold.png");
-}
-
-.trait__img__bg__platinum {
-    background-image: url("../../assets/TFT/traits/bg_platinum.png");
-}
-
-.trait__img__bg__24 {
-    width: 24px;
-    height: 28px;
-}
-
-.trait__img__bg__24 > img {
-    width: 15px;
-    height: 15px;
-}
-
-.tft__margin {
-    margin-left: 10px;
-}
-
-.vertical-align {
-    display: flex;
-    align-items: center;
-}
-
-.user__link {
-    text-decoration-line: none;
-    color: black;
-}
-
-.user__link:hover {
-    text-decoration-line: underline;
-}
-</style>

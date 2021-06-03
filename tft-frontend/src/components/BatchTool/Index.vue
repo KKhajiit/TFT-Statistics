@@ -1,0 +1,127 @@
+<template>
+    <div class="container">
+        <Grid ref="grid" :on-drop="OnDropGet" :on-drag-start="OnDragStartFromGrid" v-bind:grid-content="gridContent"/>
+        <div class="row">
+            <div class="col-7">
+                <ChampionsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
+            </div>
+            <div class="col-5">
+                <ItemsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import Grid from './Grid.vue';
+import ChampionsList from '../Champions/Index.vue';
+import ItemsList from '../Items/Index.vue';
+import Champions from '../../Utils/champions.js';
+import Items from '../../Utils/items.js';
+import Utils from "../../Utils/Utils.js";
+
+export default {
+    components: {
+        Grid,
+        ChampionsList,
+        ItemsList,
+    },
+    data() {
+        return {
+            gridContent: null,
+        };
+    },
+    mounted() {
+        this.ResetGridContent();
+    },
+    methods: {
+        ResetGridContent() {
+            this.gridContent = new Array(4);
+            for (let i = 0; i < 4; i++) {
+                this.gridContent[i] = new Array(7);
+                for (let j = 0; j < 7; j++) {
+                    this.gridContent[i][j] = null;
+                }
+            }
+        },
+        UpdateCell(r, c, data) {
+            const newRow = this.gridContent[r];
+            newRow[c] = data;
+            this.$set(this.gridContent, r, newRow)
+        },
+        AddItemToUnit(r, c, itemId) {
+            const newRow = this.gridContent[r];
+            if (newRow[c] === null) {
+                return;
+            }
+            if (!Object.prototype.hasOwnProperty.call(newRow[c], 'items')) {
+                newRow[c].items = [];
+            }
+            if (Items.GetItemById(itemId).isUnique && newRow[c].items.filter(x => x == itemId).length > 0) {
+                return;
+            }
+            if (newRow[c].items.length >= 3) {
+                return;
+            }
+            newRow[c].items.push(itemId);
+            this.$set(this.gridContent, r, newRow);
+        },
+        DeleteItemFromUnit(r, c, itemId) {
+            const newRow = this.gridContent[r];
+            if (newRow[c] === null) {
+                return;
+            }
+            if (!Object.prototype.hasOwnProperty.call(newRow[c], 'items')) {
+                return;
+            }
+            let kIndex = newRow[c].items.indexOf(itemId);
+            if (itemId > -1) {
+                newRow[c].items.splice(kIndex, 1);
+            }
+            this.$set(this.gridContent, r, newRow);
+        },
+        OnDragStartGet(event, code, index) {
+            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData(`${code}Index`, index);
+        },
+        OnDropGet(event, ref) {
+            let index = event.dataTransfer.getData(`${Champions.Code()}Index`);
+            let [i, j] = ref.split('__');
+            if (!Utils.IsNull(index)) {
+                event.dataTransfer.clearData(`${Champions.Code()}Index`);
+                this.UpdateCell(i, j, Champions.GetChampion(index));
+                // console.log(i + ' ' + j + ' ' + JSON.stringify(this.gridContent));
+            } else if (!Utils.IsNull(index = event.dataTransfer.getData(`${Items.Code()}Index`))) {
+                event.dataTransfer.clearData(`${Items.Code()}Index`);
+                this.AddItemToUnit(i, j, index);
+            } else {
+                index = event.dataTransfer.getData('ref');
+                let [ii, ij] = index.split('__');
+                event.dataTransfer.clearData('ref');
+                let tmp = this.gridContent[i][j];
+                this.UpdateCell(i, j, this.gridContent[ii][ij]);
+                this.UpdateCell(ii, ij, tmp);
+            }
+        },
+        OnDragStartFromGrid(event, ref, type) {
+            event.dataTransfer.dropEffect = 'move';
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData(type + 'ref', ref);
+        },
+        OnDropFromGrid(event) {
+            let ref = event.dataTransfer.getData('ref');
+            let imgRef = event.dataTransfer.getData('imgref');
+            if (ref !== undefined && ref !== null && ref !== '') {
+                event.dataTransfer.clearData('ref');
+                let [i, j] = ref.split('__');
+                this.UpdateCell(i, j, null);
+            } else if (imgRef !== undefined && imgRef !== null && imgRef !== '') {
+                event.dataTransfer.clearData('imgref');
+                let [i, j, k] = imgRef.split('__');
+                this.DeleteItemFromUnit(i, j, k);
+            }
+        },
+    },
+}
+</script>

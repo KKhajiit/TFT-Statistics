@@ -1,0 +1,110 @@
+.chart {
+    max-width: 600px;
+    margin: 150px auto;
+}
+
+.bg__profile {
+    background-image: url("https://mnm.gg/wp-content/uploads/2018/01/lol-bg-1920x600.png");
+}
+
+.img__profile {
+    margin: 10px;
+}
+
+
+.champions__img {
+    width: 50px;
+    height: 50px;
+    border-radius: 1px 1px 1px 1px;
+    border: 3px solid pink;
+}
+
+.champions__img__border__gold {
+    background: #ffb93b !important;
+}
+
+.trait__bg {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+}
+
+.trait__img__bg__bronze {
+    background-image: url("../TFT/traits/bg_bronze.png");
+}
+
+.trait__img__bg__silver {
+    background-image: url("../TFT/traits/bg_silver.png");
+}
+
+.trait__img__bg__gold {
+    background-image: url("../TFT/traits/bg_gold.png");
+}
+
+.trait__img__bg__platinum {
+    background-image: url("../TFT/traits/bg_platinum.png");
+}
+
+.trait__img__bg__24 {
+    width: 24px;
+    height: 28px;
+}
+
+.trait__img__bg__24 > img {
+    width: 15px;
+    height: 15px;
+}
+
+.tft__margin-10 {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.tft__margin-5 {
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-top: 5px;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.user__link {
+    text-decoration-line: none;
+    color: black;
+}
+
+.user__link:hover {
+    text-decoration-line: underline;
+}
+
+.cost-1 {
+    background: grey !important;
+}
+
+.cost-2 {
+    background: green !important;
+}
+
+.cost-3 {
+    background: blue !important;
+}
+
+.cost-4 {
+    background: purple !important;
+}
+
+.cost-5 {
+    background: #ffb93b !important;
+}
+
+.circle {
+    border-radius: 50%;
+}
