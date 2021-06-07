@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Grid ref="grid" :on-drop="OnDropGet" :on-drag-start="OnDragStartFromGrid" v-bind:grid-content="gridContent"/>
+            <Grid ref="grid" :on-drop="OnDropGet" :on-drag-start="OnDragStartFromGrid" v-bind:grid-content="gridContent"/>
 
         <div class="alert alert-warning" role="alert" v-if="messageView">
             <i class="fas fa-exclamation-triangle"></i>
@@ -39,7 +39,7 @@ export default {
     data() {
         return {
             gridContent: null,
-            messageView: true,
+            messageView: false,
             message: 'message'
         };
     },

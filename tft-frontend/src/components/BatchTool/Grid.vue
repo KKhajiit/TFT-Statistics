@@ -1,24 +1,35 @@
 <template>
-    <div class="builder">
-        <div class="builder-row" v-for="(row, rIndex) in gridContent" :key="rIndex">
-            <div class="builder-col" v-for="(col, cIndex) in row" :key="cIndex">
-                <div class="hex"
-                     :class="!IsNull(col) ? `cost-${col.cost}` : ``"
-                     :draggable="IsNull(col) ? 'false' : 'true'"
-                     @dragstart="onDragStart($event, rIndex + '__' + cIndex, '')"
-                     @drop="onDrop($event, rIndex + '__' + cIndex)" @dragover.prevent @dragenter.prevent
-                >
-                    <img class="hex__in" v-if="!IsNull(col)" :src="require(`@/assets/TFT/champions/${col.championId}.png`)"/>
+    <div class="row">
+        <div class="col-3 bg-danger gy-1">
+            <div class="active__trait bg-info" v-for="i in 3" :key="i">
+                <div class="d-inline-block align-middle">
+                    <div class="trait__bg trait__img__bg__bronze trait__img__bg__24">
+                        <img src="@/assets/TFT/traits/Set5_Assassin.svg"/>
+                    </div>
                 </div>
-                <div class="hex__top" v-if="!IsNull(col)">
-                    <img v-for="trait in col.traits" :key="trait" class="d-inline-block tft__margin-5" :src="require(`@/assets/TFT/traits/${trait}.png`)"/>
-                </div>
-                <div class="hex__bottom" v-if="!IsNull(col)">
-                    <img v-for="(item, index) in (col.items === undefined || col.items === null ? [] : col.items)" :key="`${item}__${index}`"
-                         class="d-inline-block tft__margin-5 circle"
-                         @dragstart="onDragStart($event, rIndex + '__' + cIndex + '__' + item, 'img')"
-                         :src="require(`@/assets/TFT/items/` + GetItemName(item) + `.png`)"
-                    />
+            </div>
+        </div>
+        <div class="col-9 bg-info builder">
+            <div class="builder-row" v-for="(row, rIndex) in gridContent" :key="rIndex">
+                <div class="builder-col" v-for="(col, cIndex) in row" :key="cIndex">
+                    <div class="hex"
+                         :class="!IsNull(col) ? `cost-${col.cost}` : ``"
+                         :draggable="IsNull(col) ? 'false' : 'true'"
+                         @dragstart="onDragStart($event, rIndex + '__' + cIndex, '')"
+                         @drop="onDrop($event, rIndex + '__' + cIndex)" @dragover.prevent @dragenter.prevent
+                    >
+                        <img class="hex__in" v-if="!IsNull(col)" :src="require(`@/assets/TFT/champions/${col.championId}.png`)"/>
+                    </div>
+                    <div class="hex__top" v-if="!IsNull(col)">
+                        <img v-for="trait in col.traits" :key="trait" class="d-inline-block tft__margin-5" :src="require(`@/assets/TFT/traits/${trait}.png`)"/>
+                    </div>
+                    <div class="hex__bottom" v-if="!IsNull(col)">
+                        <img v-for="(item, index) in (col.items === undefined || col.items === null ? [] : col.items)" :key="`${item}__${index}`"
+                             class="d-inline-block tft__margin-5 circle"
+                             @dragstart="onDragStart($event, rIndex + '__' + cIndex + '__' + item, 'img')"
+                             :src="require(`@/assets/TFT/items/` + GetItemName(item) + `.png`)"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -26,6 +37,7 @@
 </template>
 
 <script>
+// import Traits from '../../Utils/traits.js';
 // import Utils from "../../Utils/Utils.js";
 export default {
     props: {
@@ -47,6 +59,15 @@ export default {
         GetItemName(itemName) {
             if (itemName.length === 1) return '0' + itemName;
             return itemName;
+        },
+    },
+    computed: {
+        ActiveTrait() {
+            let ret = [];
+
+            ret.push({key: "싸움꾼", cnt: 2});
+
+            return ret;
         },
     }
 }
@@ -70,6 +91,7 @@ export default {
 }
 
 .builder-row:nth-child(even) {
+    /*margin-left: 10%;*/
     margin-left: 100px;
 }
 
