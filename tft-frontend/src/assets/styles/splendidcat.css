@@ -45,8 +45,8 @@
     background-image: url("../TFT/traits/bg_gold.png");
 }
 
-.trait__img__bg__platinum {
-    background-image: url("../TFT/traits/bg_platinum.png");
+.trait__img__bg__chromatic {
+    background-image: url("../TFT/traits/bg_chromatic.png");
 }
 
 .trait__img__bg__24 {
@@ -57,6 +57,16 @@
 .trait__img__bg__24 > img {
     width: 15px;
     height: 15px;
+}
+
+.trait__img__bg__30 {
+    width: 32px;
+    height: 34px;
+}
+
+.trait__img__bg__30 > img {
+    width: 19px;
+    height: 20px;
 }
 
 .tft__margin-10 {
@@ -111,4 +121,12 @@
 
 .circle {
     border-radius: 50%;
+}
+
+.text-white {
+    color: white;
+}
+
+.text-grey {
+    color: grey;
 }

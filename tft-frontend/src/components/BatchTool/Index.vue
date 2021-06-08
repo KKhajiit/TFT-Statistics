@@ -1,18 +1,25 @@
 <template>
     <div class="container">
-            <Grid ref="grid" :on-drop="OnDropGet" :on-drag-start="OnDragStartFromGrid" v-bind:grid-content="gridContent"/>
-
-        <div class="alert alert-warning" role="alert" v-if="messageView">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span class="tft__margin__left-10">{{ message }}</span>
-            <div class="float-end" style="cursor: pointer;" @click="DisableMessage"><i class="fas fa-times"></i></div>
-        </div>
         <div class="row">
-            <div class="col-7">
-                <ChampionsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
+            <div class="col-3">
+                <Trait :grid-content="gridContent"/>
             </div>
-            <div class="col-5">
-                <ItemsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
+            <div class="col-9">
+                <Grid ref="grid" :on-drop="OnDropGet" :on-drag-start="OnDragStartFromGrid" v-bind:grid-content="gridContent"/>
+
+                <div class="alert alert-warning" role="alert" v-if="messageView">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span class="tft__margin__left-10">{{ message }}</span>
+                    <div class="float-end" style="cursor: pointer;" @click="DisableMessage"><i class="fas fa-times"></i></div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <ChampionsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
+                    </div>
+                    <div class="col-5">
+                        <ItemsList :on-drag-start="OnDragStartGet" :on-drop="OnDropFromGrid"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -20,6 +27,7 @@
 
 <script>
 import Grid from './Grid.vue';
+import Trait from "./Trait.vue";
 import ChampionsList from '../Champions/Index.vue';
 import ItemsList from '../Items/Index.vue';
 import Champions from '../../Utils/champions.js';
@@ -29,12 +37,14 @@ import Utils from "../../Utils/Utils.js";
 const UniqueItem = '해당 아이템은 중복해서 줄 수 없습니다.';
 const ItemLimits3 = '한 챔피언에 아이템은 최대 3개까지 입니다.';
 const IfNoUnitNoItem = '아이템을 배치하기 전에 챔피언을 배치하세요.';
+const AlreadyTrait = '해당 챔피언은 이미 해당 시너지를 가지고 있습니다.';
 
 export default {
     components: {
         Grid,
         ChampionsList,
         ItemsList,
+        Trait,
     },
     data() {
         return {
@@ -69,6 +79,7 @@ export default {
             this.$set(this.gridContent, r, newRow)
         },
         AddItemToUnit(r, c, itemId) {
+            const traitKey = Items.GetTraitKey(itemId);
             const newRow = this.gridContent[r];
             if (newRow[c] === null) {
                 this.SetMessage(IfNoUnitNoItem);
@@ -79,6 +90,10 @@ export default {
             }
             if (Items.GetItemById(itemId).isUnique && newRow[c].items.filter(x => x == itemId).length > 0) {
                 this.SetMessage(UniqueItem);
+                return;
+            }
+            if (newRow[c].traits.indexOf(traitKey) > -1) {
+                this.SetMessage(AlreadyTrait);
                 return;
             }
             if (newRow[c].items.length >= 3) {

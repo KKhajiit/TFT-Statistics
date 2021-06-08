@@ -12,4 +12,12 @@ export default class Champions {
     static GetItemById(id) {
         return { ...itemList.filter(x => x.id == id)[0] };
     }
+
+    static GetTraitKey(id) {
+        const item = this.GetItemById(id);
+        if (!item.name.includes("Emblem")) {
+            return '';
+        }
+        return 'Set5_' + item.name.split(' ')[0];
+    }
 }
